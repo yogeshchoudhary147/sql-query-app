@@ -39,13 +39,5 @@ These metrics were measured using Chrome DevTools and Lighthouse.
 To ensure fast load times and smooth performance:
 
 1. **Minification:** JavaScript and CSS are minified using Webpack's production mode.
-2. **Code Splitting:** Implemented dynamic imports for components.
-3. **Pagination:** Used pagination for large datasets instead of React Window.
-4. **Efficient Rendering:** Memoized components and hooks to avoid unnecessary re-renders.
-5. **Asset Compression:** Images and static assets are compressed for faster loading.
-
-## 📝 How to Run Locally
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/sql-query-app.git
+2. **Pagination:** Used pagination for large datasets instead of React Window.
+3. **Efficient Rendering:** Memoized components and hooks to avoid unnecessary re-renders.
