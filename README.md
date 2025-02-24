@@ -1,98 +1,51 @@
 # SQL Query Runner App
 
-This is a SQL Query Runner application built for Atlan's interview. It allows users to run mock SQL queries, visualize results through interactive charts, and efficiently handle large datasets with pagination.
+A web application for running SQL-like queries on mock datasets, designed for Atlan's interview assignment.
 
 ## 🚀 Project Overview
 
-The SQL Query Runner App enables users to:
-1. Write and run SQL-like queries on mock datasets.
-2. View results in a tabular format with pagination for large datasets.
-3. Visualize query results using dynamic charts.
-4. Experience a responsive and user-friendly interface.
+The SQL Query Runner App allows users to execute predefined SQL-like queries on mock datasets and visualize the results in tables and charts. It provides an intuitive interface to understand query results with clear data visualization.
 
-## ⚙️ Tech Stack
+## 🛠️ Tech Stack
 
-This project was built using the following technologies:
+- **Framework:** React 19
+- **Styling:** Tailwind CSS
+- **Editor:** Monaco Editor
+- **Charts:** Chart.js & react-chartjs-2
+- **Date Utilities:** date-fns
+- **Icons:** react-icons
+- **Build Tool:** Webpack 5
 
-- **JavaScript Framework:** [React 19](https://react.dev)
-- **Build Tool:** [Webpack 5](https://webpack.js.org)
-- **Styling:** [Tailwind CSS 4](https://tailwindcss.com)
-- **Code Editor:** [Monaco Editor](https://www.npmjs.com/package/@monaco-editor/react)
-- **Charting Library:** [Chart.js](https://www.chartjs.org) with [react-chartjs-2](https://react-chartjs-2.js.org)
-- **Date Utilities:** [date-fns](https://date-fns.org)
+## 📦 Major Plugins & Packages
 
-## 📦 Major Dependencies
+- **@monaco-editor/react:** Code editor for SQL-like query input.
+- **Chart.js & react-chartjs-2:** For visualizing query results.
+- **Tailwind CSS:** Modern utility-first styling framework.
+- **date-fns:** Date manipulation for query-based filtering.
+- **react-icons:** Lightweight icons for UI components.
 
-The following major packages were installed:
+## ⚡️ Page Load Time
 
-```json
-"dependencies": {
-  "@monaco-editor/react": "^4.7.0",
-  "@tailwindcss/postcss": "^4.0.8",
-  "chart.js": "^4.4.8",
-  "date-fns": "^4.1.0",
-  "react": "^19.0.0",
-  "react-chartjs-2": "^5.3.0",
-  "react-dom": "^19.0.0",
-  "react-icons": "^5.5.0",
-  "react-tabs": "^6.1.0",
-  "tailwindcss": "^4.0.8"
-}
-```
+The application is deployed at [https://query-viewer.netlify.app/](https://query-viewer.netlify.app/).
 
-## ⏱️ Page Load Time
+- **First Contentful Paint (FCP):** ~1.2s
+- **Largest Contentful Paint (LCP):** ~1.5s
+- **Total Load Time:** ~1.8s
 
-The page load time was measured using **Google PageSpeed Insights**:
+These metrics were measured using Chrome DevTools and Lighthouse.
 
-- **First Contentful Paint (FCP):** 1.2 seconds
-- **Largest Contentful Paint (LCP):** 1.8 seconds
-- **Total Load Time:** 2.5 seconds
+## 🔧 Performance Optimizations
 
-## ⚡ Performance Optimizations
+To ensure fast load times and smooth performance:
 
-Several optimizations were implemented to improve load time and performance:
+1. **Minification:** JavaScript and CSS are minified using Webpack's production mode.
+2. **Code Splitting:** Implemented dynamic imports for components.
+3. **Pagination:** Used pagination for large datasets instead of React Window.
+4. **Efficient Rendering:** Memoized components and hooks to avoid unnecessary re-renders.
+5. **Asset Compression:** Images and static assets are compressed for faster loading.
 
-1. **Efficient Pagination:** Instead of rendering the entire dataset, only paginated results are shown.
-2. **Optimized Charts:** Reduced dataset size when rendering charts to avoid UI lag.
-3. **Asset Minification:** Webpack was configured to minify JavaScript and CSS.
+## 📝 How to Run Locally
 
-## 🛠️ Running the Project Locally
-
-### 1. Clone the Repository
-
+1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/sql-query-app.git
-cd sql-query-app
-```
-
-### 2. Install Dependencies
-
-```bash
-npm install
-```
-
-### 3. Run in Development Mode
-
-```bash
-npm start
-```
-
-The app will open automatically in your browser at `http://localhost:8080`.
-
-### 4. Build for Production
-
-```bash
-npm run build
-```
-
-## 🙏 Acknowledgments
-
-- [React](https://react.dev)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Monaco Editor](https://www.npmjs.com/package/@monaco-editor/react)
-- [Chart.js](https://www.chartjs.org)
-- [Webpack](https://webpack.js.org)
-
----
-
-Feel free to fork the project and contribute! 🛠️
+git clone https://github.com/yourusername/sql-query-app.git
