@@ -10,7 +10,6 @@ The SQL Query Runner App allows users to execute predefined SQL-like queries on 
 
 - **Framework:** React 19
 - **Styling:** Tailwind CSS
-- **Editor:** Monaco Editor
 - **Charts:** Chart.js & react-chartjs-2
 - **Date Utilities:** date-fns
 - **Icons:** react-icons
