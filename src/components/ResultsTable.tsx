@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { SortConfig } from "../types";
 import { PaginationControls } from "./PaginationControls";
-import { FaFileExport, FaSearch } from "react-icons/fa";
+import { FaFileExport, FaSearch, FaInfoCircle } from "react-icons/fa";
 import { usePersistentState } from "../hooks/usePersistentState";
 import { useDebounce } from "../hooks/useDebounce";
 
@@ -70,40 +70,36 @@ export const ResultsTable: React.FC<ResultsTableProps> = React.memo(({
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-all duration-200 hover:shadow-lg">
       <div className="flex flex-col gap-4 mb-4">
-        <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-500 dark:text-gray-400 italic animate-fade-in">
-            State persists across sessions
-          </span>
+        <div className="flex justify-between items-center mb-4">
+          <div className="relative flex-grow">
+            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search in results..."
+              className="w-full pl-10 pr-12 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
+            />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm("")}
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm px-3 py-1 
+                  bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 
+                  text-gray-500 dark:text-gray-300 rounded-full 
+                  transition-all duration-200 hover:scale-105"
+              >
+                Clear
+              </button>
+            )}
+          </div>
+
           <button
             onClick={onExport}
-            className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-full shadow-md hover:bg-purple-700 transition-all duration-300 transform hover:scale-105"
+            className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-full shadow-md hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 ml-4"
           >
             <FaFileExport />
             Export CSV
           </button>
-        </div>
-
-        {/* Updated Search Bar with Clear Button */}
-        <div className="relative">
-          <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search in results..."
-            className="w-full pl-10 pr-12 py-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-          />
-          {searchTerm && (
-            <button
-              onClick={() => setSearchTerm("")}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm px-3 py-1 
-                bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 
-                text-gray-500 dark:text-gray-300 rounded-full 
-                transition-all duration-200 hover:scale-105"
-            >
-              Clear
-            </button>
-          )}
         </div>
 
         {/* Results count */}
