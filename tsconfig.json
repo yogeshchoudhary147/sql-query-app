@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6", // Compile to modern JavaScript (ES6)
+    "module": "ES6", // Use ES6 modules
+    "jsx": "react-jsx", // Enable React 19 JSX syntax
+    "moduleResolution": "node", // Resolve modules like Node.js
+    "esModuleInterop": true, // Enable interoperability with CommonJS
+    "strict": true, // Enable all strict type-checking options
+    "skipLibCheck": true, // Skip type-checking of declaration files
+    "forceConsistentCasingInFileNames": true, // Ensure consistent file casing
+    "sourceMap": true, // Generate source maps for debugging
+    "outDir": "./dist", // Output compiled files to "dist"
+    "types": ["node", "react", "react-dom"] // Include type definitions
+  },
+  "include": ["src/**/*"], // Include all TypeScript files in "src"
+  "exclude": ["node_modules", "dist"] // Exclude "node_modules" and build output
+}
