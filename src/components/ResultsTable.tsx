@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { SortConfig } from "../types";
 import { PaginationControls } from "./PaginationControls";
 import { FaFileExport, FaSearch } from "react-icons/fa";
@@ -15,7 +15,7 @@ interface ResultsTableProps {
   onExport: () => void;
 }
 
-export const ResultsTable: React.FC<ResultsTableProps> = ({
+export const ResultsTable: React.FC<ResultsTableProps> = React.memo(({
   data,
   sortConfig,
   onSort,
@@ -25,54 +25,47 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
   onExport,
 }) => {
   // Use persistent state for search
-  const [searchTerm, setSearchTerm] = usePersistentState<string>(
-    "sql_viewer_search",
-    ""
-  );
+  const [searchTerm, setSearchTerm] = usePersistentState<string>("sql_viewer_search", "");
   const debouncedSearch = useDebounce(searchTerm, 300);
 
   // Filter data based on search term
-  const filterData = (data: Record<string, string | number>[]) => {
+  const filteredData = useMemo(() => {
     if (!debouncedSearch) return data;
     return data.filter((row) =>
       Object.values(row).some((value) =>
         String(value).toLowerCase().includes(debouncedSearch.toLowerCase())
       )
     );
-  };
+  }, [data, debouncedSearch]);
 
   // Reset to first page when search changes
   useEffect(() => {
     onPageChange(1);
-  }, [debouncedSearch]);
+  }, [debouncedSearch, onPageChange]);
 
-  const sortData = (data: Record<string, string | number>[]) => {
-    if (!sortConfig) return data;
-    const sorted = [...data];
+  // Sort data
+  const sortedData = useMemo(() => {
+    if (!sortConfig) return filteredData;
+    const sorted = [...filteredData];
     sorted.sort((a, b) => {
       const aValue = a[sortConfig.key];
       const bValue = b[sortConfig.key];
       if (typeof aValue === "number" && typeof bValue === "number") {
-        return sortConfig.direction === "asc"
-          ? aValue - bValue
-          : bValue - aValue;
+        return sortConfig.direction === "asc" ? aValue - bValue : bValue - aValue;
       }
       const aStr = String(aValue);
       const bStr = String(bValue);
-      return sortConfig.direction === "asc"
-        ? aStr.localeCompare(bStr)
-        : bStr.localeCompare(aStr);
+      return sortConfig.direction === "asc" ? aStr.localeCompare(bStr) : bStr.localeCompare(aStr);
     });
     return sorted;
-  };
+  }, [filteredData, sortConfig]);
 
-  const filteredData = filterData(data);
-  const sortedData = sortData(filteredData);
+  // Pagination logic
   const totalItems = sortedData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const paginatedData = sortedData.slice(startIndex, endIndex);
+  const paginatedData = useMemo(() => sortedData.slice(startIndex, endIndex), [sortedData, startIndex, endIndex]);
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-all duration-200 hover:shadow-lg">
@@ -162,4 +155,4 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
       />
     </div>
   );
-};
+});

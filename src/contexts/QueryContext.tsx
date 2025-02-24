@@ -45,8 +45,7 @@ export const QueryProvider: React.FC<{ children: ReactNode }> = ({
   // Persistent state
   const [selectedQuery, setSelectedQuery] = usePersistentState(
     STORAGE_KEYS.QUERY_ID,
-    mockData[0],
-    (id: string) => mockData.find((q) => q.id === parseInt(id)) || mockData[0]
+    mockData[0]
   );
   const [currentPage, setCurrentPage] = usePersistentState(
     STORAGE_KEYS.CURRENT_PAGE,

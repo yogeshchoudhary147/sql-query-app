@@ -6,7 +6,7 @@ interface QueryDisplayProps {
   onCopy: () => void;
 }
 
-export const QueryDisplay: React.FC<QueryDisplayProps> = ({
+export const QueryDisplay: React.FC<QueryDisplayProps> = React.memo(({
   queryText,
   onCopy,
 }) => (
@@ -25,4 +25,4 @@ export const QueryDisplay: React.FC<QueryDisplayProps> = ({
       <FaCopy className="text-lg" />
     </button>
   </div>
-);
+));

@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useQuery } from '../contexts/QueryContext';
 import { formatDistanceToNow } from 'date-fns';
 import { mockData } from '../utils/data';
 
-export const QueryHistory: React.FC = () => {
+export const QueryHistory: React.FC = React.memo(() => {
   const { queryHistory, clearHistory, setSelectedQuery, selectedQuery } = useQuery();
 
-  const handleQuerySelect = (queryId: number, queryText: string) => {
-    // Find the full query data from mockData
+  const handleQuerySelect = useCallback((queryId: number) => {
     const fullQuery = mockData.find(q => q.id === queryId);
     if (fullQuery) {
+      console.log("handleQuerySelect called");
       setSelectedQuery(fullQuery);
     }
-  };
+  }, [setSelectedQuery]);
 
   if (queryHistory.length === 0) {
     return null;
@@ -36,7 +36,7 @@ export const QueryHistory: React.FC = () => {
             className={`p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors cursor-pointer ${
               selectedQuery.id === query.id ? 'bg-blue-50 dark:bg-blue-900/30' : ''
             }`}
-            onClick={() => handleQuerySelect(query.id, query.text)}
+            onClick={() => handleQuerySelect(query.id)}
           >
             <div className="flex justify-between items-start mb-2">
               <div className="font-mono text-sm text-gray-600 dark:text-gray-400 truncate flex-1 mr-4">
@@ -54,4 +54,4 @@ export const QueryHistory: React.FC = () => {
       </div>
     </div>
   );
-};
+});

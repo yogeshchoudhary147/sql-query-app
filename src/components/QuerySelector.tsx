@@ -7,7 +7,7 @@ interface QuerySelectorProps {
   onQueryChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-export const QuerySelector: React.FC<QuerySelectorProps> = ({
+export const QuerySelector: React.FC<QuerySelectorProps> = React.memo(({
   queries,
   selectedQuery,
   onQueryChange,
@@ -47,4 +47,4 @@ export const QuerySelector: React.FC<QuerySelectorProps> = ({
       </svg>
     </div>
   </div>
-);
+));

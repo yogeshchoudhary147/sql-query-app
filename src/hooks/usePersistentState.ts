@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 export const usePersistentState = <T>(
   key: string,
   defaultValue: T,
   parser?: (value: string) => T
 ): [T, React.Dispatch<React.SetStateAction<T>>] => {
-  const [value, setValue] = useState<T>(() => {
+  const initialValue = useMemo(() => {
     try {
       const saved = localStorage.getItem(key);
       if (saved !== null) {
@@ -16,10 +16,19 @@ export const usePersistentState = <T>(
       console.error(`Error parsing localStorage key "${key}":`, error);
     }
     return defaultValue;
-  });
+  }, [key, defaultValue, parser]);
+
+  const [value, setValue] = useState<T>(initialValue);
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
+    try {
+      const currentValue = localStorage.getItem(key);
+      if (currentValue !== JSON.stringify(value)) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+    } catch (error) {
+      console.error(`Error saving localStorage key "${key}":`, error);
+    }
   }, [key, value]);
 
   return [value, setValue];

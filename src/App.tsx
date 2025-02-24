@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Header } from "./components/Header";
 import { QuerySelector } from "./components/QuerySelector";
 import { QueryDisplay } from "./components/QueryDisplay";
@@ -24,21 +24,22 @@ const App: React.FC = () => {
     setSortConfig,
   } = useQuery();
 
-  const copyToClipboard = () => {
+  const copyToClipboard = useCallback(() => {
     navigator.clipboard.writeText(selectedQuery.text);
     alert("Query copied to clipboard!");
-  };
+  }, [selectedQuery.text]);
 
-  const handleQueryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleQueryChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     const query = mockData.find((q) => q.id === parseInt(e.target.value));
     if (query) {
+      console.log("handleQueryChange called");
       setSelectedQuery(query);
       setCurrentPage(1);
       setSortConfig(null);
     }
-  };
+  }, [setSelectedQuery, setCurrentPage, setSortConfig]);
 
-  const handleSort = (key: string) => {
+  const handleSort = useCallback((key: string) => {
     setSortConfig((prev: SortConfig) => {
       if (prev && prev.key === key && prev.direction === "asc") {
         return { key, direction: "desc" as const };
@@ -46,15 +47,15 @@ const App: React.FC = () => {
       return { key, direction: "asc" as const };
     });
     setCurrentPage(1);
-  };
+  }, [setSortConfig, setCurrentPage]);
 
-  const handleExport = () => {
+  const handleExport = useCallback(() => {
     exportToCsv(selectedQuery.data, `query_${selectedQuery.id}_results.csv`);
-  };
+  }, [selectedQuery.data, selectedQuery.id]);
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
-  };
+  }, [setCurrentPage]);
 
   return (
     <div className="min-h-screen p-6 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white transition-all duration-300">

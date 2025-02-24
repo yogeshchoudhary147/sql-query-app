@@ -2,7 +2,7 @@ import React from "react";
 import { useDarkMode } from "../hooks/useDarkMode";
 import { FaMoon, FaSun } from "react-icons/fa";
 
-export const Header: React.FC = () => {
+export const Header: React.FC = React.memo(() => {
   const [isDarkMode, toggleDarkMode] = useDarkMode();
 
   return (
@@ -26,4 +26,4 @@ export const Header: React.FC = () => {
       </button>
     </header>
   );
-};
+});
