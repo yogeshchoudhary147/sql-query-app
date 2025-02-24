@@ -32,7 +32,6 @@ const App: React.FC = () => {
   const handleQueryChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
     const query = mockData.find((q) => q.id === parseInt(e.target.value));
     if (query) {
-      console.log("handleQueryChange called");
       setSelectedQuery(query);
       setCurrentPage(1);
       setSortConfig(null);
